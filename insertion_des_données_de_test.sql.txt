@@ -1,0 +1,33 @@
+USE `tifosi`;
+
+-- Insertion des Ingrédients
+INSERT INTO `ingredient` (id_ingredient, nom) VALUES
+(1, 'Ail'), (2, 'Ananas'), (3, 'Artichaut'), (4, 'Bacon'), (5, 'Base Tomate'),
+(6, 'Base crème'), (7, 'Champignon'), (8, 'Chevre'), (9, 'Cresson'), (10, 'Emmental'),
+(11, 'Gorgonzola'), (12, 'Jambon cuit'), (13, 'Jambon fumé'), (14, 'Oeuf'), (15, 'Oignon'),
+(16, 'Olive noire'), (17, 'Olive verte'), (18, 'Parmesan'), (19, 'Piment'), (20, 'Poivre'),
+(21, 'Pomme de terre'), (22, 'Raclette'), (23, 'Salami'), (24, 'Tomate cerise'), (25, 'Mozarella');
+
+-- Insertion des Marques
+INSERT INTO `marque` (id_marque, nom) VALUES
+(1, 'Coca-cola'), (2, 'Cristalline'), (3, 'Monster'), (4, 'Pepsico');
+
+-- Insertion des Boissons
+INSERT INTO `boisson` (id_boisson, nom) VALUES
+(1, 'Coca-cola zéro'), (2, 'Coca-cola original'), (3, 'Fanta citron'), (4, 'Fanta orange'),
+(5, 'Capri-sun'), (6, 'Pepsi'), (7, 'Pepsi Max Zéro'), (8, 'Lipton zéro citron'),
+(9, 'Lipton Peach'), (10, 'Monster energy ultra gold'), (11, 'Monster energy ultra blue'), (12, 'Eau de source');
+
+-- Liens Boissons / Marques
+INSERT INTO `appartient` (id_boisson, id_marque) VALUES
+(1,1), (2,1), (3,1), (4,1), (5,1), (6,4), (7,4), (8,4), (9,4), (10,3), (11,3), (12,2);
+
+-- Insertion des Focaccias
+INSERT INTO `focaccia` (id_focaccia, nom, prix) VALUES
+(1, 'Mozaccia', 9.80), (2, 'Gorgonzollaccia', 10.80), (3, 'Raclaccia', 8.90),
+(4, 'Emmentalaccia', 9.80), (5, 'Tradizione', 8.90), (6, 'Hawaienne', 11.20),
+(7, 'Américaine', 10.80), (8, 'Paysanne', 12.80);
+
+-- Exemple de liaison Focaccia/Ingrédients (La Raclaccia)
+INSERT INTO `comprend` (id_focaccia, id_ingredient) VALUES
+(3, 5), (3, 22), (3, 9), (3, 1), (3, 7), (3, 18), (3, 20);

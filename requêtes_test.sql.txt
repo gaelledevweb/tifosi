@@ -1,0 +1,48 @@
+USE `tifosi`;
+
+-- Liste des focaccias (ordre alphabétique)
+SELECT nom FROM focaccia ORDER BY nom ASC;
+
+-- Nombre total d'ingrédients
+SELECT COUNT(*) FROM ingredient;
+
+-- Prix moyen des focaccias
+SELECT AVG(prix) FROM focaccia;
+
+-- Boissons et leurs marques
+SELECT b.nom, m.nom FROM boisson b 
+JOIN appartient a ON b.id_boisson = a.id_boisson 
+JOIN marque m ON a.id_marque = m.id_marque 
+ORDER BY b.nom;
+
+-- Ingrédients de la Raclaccia
+SELECT i.nom FROM ingredient i 
+JOIN comprend c ON i.id_ingredient = c.id_ingredient 
+JOIN focaccia f ON c.id_focaccia = f.id_focaccia 
+WHERE f.nom = 'Raclaccia';
+
+-- Nombre d'ingrédients par focaccia
+SELECT f.nom, COUNT(c.id_ingredient) FROM focaccia f 
+JOIN comprend c ON f.id_focaccia = c.id_focaccia 
+GROUP BY f.nom;
+
+-- Focaccia avec le plus d'ingrédients
+SELECT f.nom FROM focaccia f 
+JOIN comprend c ON f.id_focaccia = c.id_focaccia 
+GROUP BY f.nom ORDER BY COUNT(c.id_ingredient) DESC LIMIT 1;
+
+-- Focaccias avec de l'ail
+SELECT f.nom FROM focaccia f 
+JOIN comprend c ON f.id_focaccia = c.id_focaccia 
+JOIN ingredient i ON c.id_ingredient = i.id_ingredient 
+WHERE i.nom = 'Ail';
+
+-- Ingrédients inutilisés
+SELECT nom FROM ingredient WHERE id_ingredient NOT IN (SELECT id_ingredient FROM comprend);
+
+-- Focaccias sans champignons
+SELECT nom FROM focaccia WHERE id_focaccia NOT IN (
+    SELECT id_focaccia FROM comprend c 
+    JOIN ingredient i ON c.id_ingredient = i.id_ingredient 
+    WHERE i.nom LIKE '%champignon%'
+);
